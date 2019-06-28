@@ -1,1 +1,1 @@
-# CSE-323---Social-Media-Analysis
+# CSE323-SNA
