@@ -87,13 +87,13 @@ class Ui_Form(object):
             elist.append(edge)
         elist.remove(elist[0])
         G.add_weighted_edges_from(elist)
+        b = []
         if option == 0:
             a = nx.degree_centrality(G)
         elif option == 1:
             a = nx.closeness_centrality(G)
         else:
-            a = nx.betweenness_centrality(G)
-        b = []
+            a = nx.betweenness_centrality(G, normalized=False)
         for e in a.values():
             b.append(500 + (e*2*3*5*7)**1.5)
         labels = nx.get_edge_attributes(G, 'weight')
@@ -101,7 +101,7 @@ class Ui_Form(object):
         nx.draw(G, pos, with_labels=True, node_size=b)
         nx.draw_networkx_edge_labels(
             G, pos, edge_labels=labels)
-        plt.savefig("Graph.png")  # save as png
+        plt.savefig("Graph.png")
         plt.close()
 
         pixmap = QtGui.QPixmap("Graph.png")
@@ -110,7 +110,7 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        Form.setWindowTitle(_translate("Form", "Graph Visualization"))
         self.OpenFile.setText(_translate("Form", "Open File"))
         self.Betweenness.setText(_translate("Form", "Betweenness"))
         self.Closeness.setText(_translate("Form", "Closeness"))
