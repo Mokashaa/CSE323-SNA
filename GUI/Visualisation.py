@@ -26,7 +26,7 @@ class Ui_Form(object):
         self.GraphView = QtWidgets.QWidget(Form)
         self.GraphView.setMinimumSize(QtCore.QSize(400, 300))
         self.GraphView.setObjectName("GraphView")
-        self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.GraphView)
+        self.horizontalLayout_4 = QtWidgets.QVBoxLayout(self.GraphView)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.ImageLabel = QtWidgets.QLabel()
         self.horizontalLayout_4.addWidget(self.ImageLabel)
@@ -95,31 +95,31 @@ class Ui_Form(object):
         a = []
         if option == 0:
             a = DegreeCenterality(self.adj_list, self.vertices_num)
-            ma = max(a.values())
-            mi = min(a.values())
+            ma = max(map(float, a.values()))
+            mi = min(map(float, a.values()))
             if(ma == mi):
                 ma = mi + 1
             i = 0
             for e in a.values():
-                b[i] = (500 + (((e-mi)/(ma-mi))*3500))
+                b[i] = (300 + (((e-mi)/(ma-mi))*3000))
                 i += 1
         elif option == 1:
             a = nx.closeness_centrality(G)
-            ma = max(a.values())
-            mi = min(a.values())
+            ma = max(map(float, a.values()))
+            mi = min(map(float, a.values()))
             if(ma == mi):
                 ma = mi + 1
             i = 0
             for e in a.values():
-                b[i] = (500 + (((e-mi)/(ma-mi))*3500))
+                b[i] = (300 + (((e-mi)/(ma-mi))*3000))
                 i += 1
         else:
             a = BetweenessCentrality(self.adj_list, self.vertices_num)
-            ma = float(max(a))
-            mi = float(min(a))
+            ma = float(max(map(float, a)))
+            mi = float(min(map(float, a)))
             i = 0
             for e in a:
-                b[i] = (500 + (((float(e)-mi)/(ma-mi))*3000))
+                b[i] = (300 + (((float(e)-mi)/(ma-mi))*3000))
                 i += 1
         labels = nx.get_edge_attributes(G, 'weight')
         pos = nx.spring_layout(G)
@@ -129,9 +129,10 @@ class Ui_Form(object):
         plt.savefig("Graph.png")
         plt.close()
 
-        pixmap = QtGui.QPixmap("Graph.png")
-        self.ImageLabel.setPixmap(pixmap)
-        self.GraphView.setMinimumSize(pixmap.width()+20, pixmap.height()+20)
+        self.pixmap = QtGui.QPixmap("Graph.png")
+        self.ImageLabel.setPixmap(self.pixmap)
+        self.GraphView.setMinimumSize(
+            self.pixmap.width()+20, self.pixmap.height()+20)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
