@@ -65,7 +65,7 @@ def BetweenessCentralityInternal(Node,adj_list):
 
 #Printing betweeness centrality
 #creating list for the result
-def BetweenessCentrality(adj_list):
+def BetweenessCentrality(adj_list,vertices_num):
 	betweeness_centrality=[]
 	for i in range(vertices_num):
 		g=BetweenessCentralityInternal(i,adj_list)
