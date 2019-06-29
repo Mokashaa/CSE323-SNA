@@ -96,7 +96,11 @@ class Ui_Form(object):
         b = []
         for e in a.values():
             b.append(500 + (e*2*3*5*7)**1.5)
-        nx.draw(G, with_labels=True, node_size=b)
+        labels = nx.get_edge_attributes(G, 'weight')
+        pos = nx.spring_layout(G)
+        nx.draw(G, pos, with_labels=True, node_size=b)
+        nx.draw_networkx_edge_labels(
+            G, pos, edge_labels=labels)
         plt.savefig("Graph.png")  # save as png
         plt.close()
 
