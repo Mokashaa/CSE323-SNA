@@ -11,6 +11,8 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import copy
 import os
+from constructorAndDegreeCentrality import *
+from BetweenessCentrality import *
 
 
 class Ui_Form(object):
@@ -69,6 +71,7 @@ class Ui_Form(object):
         f = open(fname[0])
         if f.mode == 'r':
             self.FileContents = f.readlines()
+        self.adj_list, self.vertices_num = constructor(self.FileContents)
 
     def DegreeCentrality(self):
         self.ViewGraph(0)
@@ -88,14 +91,21 @@ class Ui_Form(object):
         elist.remove(elist[0])
         G.add_weighted_edges_from(elist)
         b = []
+        a = []
+        m = 1
         if option == 0:
-            a = nx.degree_centrality(G)
+            a = DegreeCenterality(self.adj_list, self.vertices_num)
+            m = max(a)
+            for e in a.values():
+                b.append(500 + ((e/m)*2*3*5*7)**1.5)
         elif option == 1:
             a = nx.closeness_centrality(G)
         else:
-            a = nx.betweenness_centrality(G, normalized=False)
-        for e in a.values():
-            b.append(500 + (e*2*3*5*7)**1.5)
+            a = BetweenessCentrality(self.adj_list, self.vertices_num)
+            m = float(max(a))
+            for e in a:
+                b.append(500 + ((float(e)/m)*2*3*5*7)**1.5)
+
         labels = nx.get_edge_attributes(G, 'weight')
         pos = nx.spring_layout(G)
         nx.draw(G, pos, with_labels=True, node_size=b)

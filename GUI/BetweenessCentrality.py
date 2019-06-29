@@ -70,5 +70,5 @@ def BetweenessCentrality(adj_list,vertices_num):
 	for i in range(vertices_num):
 		g=BetweenessCentralityInternal(i,adj_list)
 		betweeness_centrality.append('%.12f' % g)
-		print('%.12f' % g)
+		# print('%.12f' % g)
 	return betweeness_centrality
