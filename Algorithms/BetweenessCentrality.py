@@ -7,7 +7,7 @@ def AllSimplePaths(originNode,targetNode,adj_list):
 	usedNodes=[originNode]
 	answerPaths=[]
 	return getAllSimplePaths(targetNode,currentPath,usedNodes,adj_list,answerPaths)	
-
+ 
 def getAllSimplePaths(targetNode,currentPath,usedNodes,adj_list,answerPaths):
 	weight=0
 	lastNode = currentPath[-1]
