@@ -89,34 +89,49 @@ class Ui_Form(object):
             edge = line.split()
             elist.append(edge)
         elist.remove(elist[0])
+        G.add_nodes_from(map(str, list(range(self.vertices_num))))
         G.add_weighted_edges_from(elist)
-        b = []
+        b = [None]*self.vertices_num
         a = []
-        m = 1
         if option == 0:
             a = DegreeCenterality(self.adj_list, self.vertices_num)
-            m = max(a)
+            ma = max(a.values())
+            mi = min(a.values())
+            if(ma == mi):
+                ma = mi + 1
+            i = 0
             for e in a.values():
-                b.append(500 + ((e/m)*2*3*5*7)**1.5)
+                b[i] = (500 + (((e-mi)/(ma-mi))*3500))
+                i += 1
         elif option == 1:
             a = nx.closeness_centrality(G)
+            ma = max(a.values())
+            mi = min(a.values())
+            if(ma == mi):
+                ma = mi + 1
+            i = 0
+            for e in a.values():
+                b[i] = (500 + (((e-mi)/(ma-mi))*3500))
+                i += 1
         else:
             a = BetweenessCentrality(self.adj_list, self.vertices_num)
-            m = float(max(a))
+            ma = float(max(a))
+            mi = float(min(a))
+            i = 0
             for e in a:
-                b.append(500 + ((float(e)/m)*2*3*5*7)**1.5)
-
+                b[i] = (500 + (((float(e)-mi)/(ma-mi))*3000))
+                i += 1
         labels = nx.get_edge_attributes(G, 'weight')
         pos = nx.spring_layout(G)
         nx.draw(G, pos, with_labels=True, node_size=b)
         nx.draw_networkx_edge_labels(
-            G, pos, edge_labels=labels)
+            G, pos, edge_labels=labels, node_size=b)
         plt.savefig("Graph.png")
         plt.close()
 
         pixmap = QtGui.QPixmap("Graph.png")
         self.ImageLabel.setPixmap(pixmap)
-        self.GraphView.setMinimumSize(pixmap.width()+15, pixmap.height()+15)
+        self.GraphView.setMinimumSize(pixmap.width()+20, pixmap.height()+20)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
