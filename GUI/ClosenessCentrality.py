@@ -1,6 +1,5 @@
-import numpy as np
-
-def	dijkstra(node):
+#Graph Constructor
+def	dijkstra(node,vertices_num,adj_list):
 
 	dist = [100000000 for i in range(vertices_num)]
 	parent = [-1 for i in range(vertices_num)]
@@ -26,3 +25,14 @@ def	dijkstra(node):
 		nodes_queue.sort(key=lambda i: i['weight'])
 	
 	return dist,parent
+
+
+def ClosenessCentrality (vertices_num,adj_list):
+    closeness_centrality = {}
+    for i in range(vertices_num):
+        distance,parent = dijkstra (i,vertices_num,adj_list)
+        distance_sum = sum(distance)
+        closeness_centrality[i]=(vertices_num-1)/distance_sum
+        
+    return closeness_centrality
+	

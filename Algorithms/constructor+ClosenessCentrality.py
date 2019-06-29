@@ -1,4 +1,4 @@
-import numpy as np
+
 
 def	dijkstra(node):
 
@@ -26,3 +26,25 @@ def	dijkstra(node):
 		nodes_queue.sort(key=lambda i: i['weight'])
 	
 	return dist,parent
+
+
+#Graph Constructor
+vertices_num,edges_num=input().split()
+edges_num=int(edges_num)
+vertices_num=int(vertices_num)
+adj_list = [{} for _ in range(vertices_num)]
+
+
+for i in range (edges_num):
+    src, des, weight=input().split()
+    adj_list[int(src)][int(des)]=int(weight)
+    adj_list[int(des)][int(src)]=int(weight)
+
+
+closeness_centrality = {}
+for i in range(vertices_num):
+	distance,parent = dijkstra (i)
+	distance_sum = sum(distance)
+	closeness_centrality[i]=(vertices_num-1)/distance_sum
+	print('%0.12f' % closeness_centrality[i])
+	
