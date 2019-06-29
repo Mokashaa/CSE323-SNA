@@ -1,5 +1,3 @@
-import numpy as np
-
 
 def lastelement(element):
 	return element[-1]
@@ -9,7 +7,7 @@ def AllSimplePaths(originNode,targetNode,adj_list):
 	usedNodes=[originNode]
 	answerPaths=[]
 	return getAllSimplePaths(targetNode,currentPath,usedNodes,adj_list,answerPaths)	
-
+ 
 def getAllSimplePaths(targetNode,currentPath,usedNodes,adj_list,answerPaths):
 	weight=0
 	lastNode = currentPath[-1]
@@ -52,7 +50,7 @@ def numShortestPathsWithNode(Paths,Node,numpaths):
 		Paths[i].append(temp)
 	return numpathsWnode
 
-def BetweenessCentrality(Node):
+def BetweenessCentralityInternal(Node,adj_list):
 	g=0
 	for i in range(len(adj_list)-1):
 		for j in range(i+1,len(adj_list)):
@@ -67,8 +65,10 @@ def BetweenessCentrality(Node):
 
 #Printing betweeness centrality
 #creating list for the result
-betweeness_centrality=[]
-for i in range(vertices_num):
-	g=BetweenessCentrality(i)
-	betweeness_centrality.append('%.12f' % g)
-	print('%.12f' % g)
+def BetweenessCentrality(adj_list,vertices_num):
+	betweeness_centrality=[]
+	for i in range(vertices_num):
+		g=BetweenessCentralityInternal(i,adj_list)
+		betweeness_centrality.append('%.12f' % g)
+		print('%.12f' % g)
+	return betweeness_centrality
