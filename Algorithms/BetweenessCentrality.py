@@ -66,6 +66,9 @@ def BetweenessCentrality(Node):
 
 
 #Printing betweeness centrality
+#creating list for the result
+betweeness_centrality=[]
 for i in range(vertices_num):
 	g=BetweenessCentrality(i)
+	betweeness_centrality.append('%.12f' % g)
 	print('%.12f' % g)
