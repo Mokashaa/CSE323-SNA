@@ -15,9 +15,9 @@ for i in range (edges_num):
 #Degree Centrality
 degree_centrality={}
 
-for i in range (edges_num): #should be vertices_num
+for i in range (vertices_num):
     degree_centrality[i]=len(adj_list[i])
 
 
-for i in range (edges_num): #same
+for i in range (vertices_num):
     print(degree_centrality[i])
