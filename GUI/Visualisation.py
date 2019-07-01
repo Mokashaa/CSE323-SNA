@@ -13,6 +13,7 @@ import copy
 import os
 from constructorAndDegreeCentrality import *
 from BetweenessCentrality import *
+from ClosenessCentrality import *
 
 
 class Ui_Form(object):
@@ -104,7 +105,7 @@ class Ui_Form(object):
                 b[i] = (300 + (((e-mi)/(ma-mi))*3000))
                 i += 1
         elif option == 1:
-            a = nx.closeness_centrality(G)
+            a = ClosenessCentrality(self.vertices_num, self.adj_list)
             ma = max(map(float, a.values()))
             mi = min(map(float, a.values()))
             if(ma == mi):

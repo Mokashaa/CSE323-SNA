@@ -1,5 +1,5 @@
 import sys
-import networkx as nx 
+import networkx as nx
 import matplotlib.pyplot as plt
 import copy
 
@@ -23,12 +23,8 @@ elist = [('a', 'b', 5.0), ('b', 'c', 3.0), ('a', 'c', 1.0), ('c', 'd', 4.3)]
 H.add_weighted_edges_from(elist)
 L = nx.Graph()
 labels = []
-nx.set_node_attributes(L, labels, 'labels')
-labels.append('a')
-labels.append('b')
-labels.append('c')
-labels.append('d')
-elist = [('a', 'b', 5.0), ('b', 'c', 3.0), ('a', 'c', 1.0), ('c', 'd', 4.3)]
+elist = [('0', '2', 10), ('1', '0', 1.0),
+         ('0', '3', 5), ('3', '1', 1), ('2', '3', 4)]
 L.add_weighted_edges_from(elist)
 
 a = nx.degree_centrality(G)
